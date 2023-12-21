@@ -1,4 +1,4 @@
-export type GameDetail = {
+export type GameTitle = {
     id?: number
     name: string
     deck: string
@@ -7,13 +7,16 @@ export type GameDetail = {
     release: number
     background_image: string
     characters: string
-    genres: string
+    genres: {
+        id?: number
+        name: string
+    }[]
 }
 
-export type GameDetails = {
-    results: GameDetail[]
+export type GameTitles = {
+    results: GameTitle[]
     page: number
-    total_pages: number
+    count: number
 }
 
 export type Genre = {
