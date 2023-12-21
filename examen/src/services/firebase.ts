@@ -3,7 +3,7 @@ import { CollectionReference, getFirestore, DocumentData, collection } from "fir
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import { UserInfo } from "../types/User.types";
-import { GameDetail } from "../types/Game.types";
+import { GameTitle } from "../types/Game.types";
 
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_REACT_FIREBASE_API_KEY,
@@ -26,7 +26,7 @@ const createCollection = <T = DocumentData>(collectionName: string) => {
     return collection(db, collectionName) as CollectionReference<T>
 }
 
-export const gamesCol = createCollection<GameDetail>("games")
+export const gamesCol = createCollection<GameTitle>("games")
 
 export const usersCol = createCollection<UserInfo>("users")
 

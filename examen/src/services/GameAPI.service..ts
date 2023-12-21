@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GameTitles } from "../types/Game.types";
+import { GameTitle, GameTitles } from "../types/Game.types";
 
 const API_KEY = import.meta.env.VITE_REACT_GAME_API_KEY;
 const BASE_URL = "https://api.rawg.io/api";
@@ -10,7 +10,16 @@ export const getGames = async (page = 1) => {
     const response = await axios.get(`${BASE_URL}/games?key=${API_KEY}&page=${page}`);
     return response.data as GameTitles;
   } catch (error) {
-    console.error("Error fetching games:", error);
+    console.error("Error fetching games: ", error);
     throw error;
   }
 };
+
+export const getGame = async (gameId: number) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/games/${gameId}?key=${API_KEY}`)
+    return response.data as GameTitle
+  } catch (error) {
+    console.error("Error fetching game: ", error)
+  }
+}

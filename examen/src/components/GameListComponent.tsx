@@ -9,6 +9,8 @@ const GameListComponent = ({ games }: GameListProps) => {
   if (!games) {
     return;
   }
+
+  console.log(games.results)
   return (
     <div className="row">
       {games.results.map((game) => (
@@ -21,21 +23,13 @@ const GameListComponent = ({ games }: GameListProps) => {
               <Card.Title className="d-flex justify-content-center">{game.name}</Card.Title>
             </Link>
             <Card.Text className="d-flex justify-content-evenly" style={{fontSize: "10px"}}>{game.genres.map((genre) => genre.name)}</Card.Text>
-          <div
-            className="flex d-flex"
-          >
+            <Card.Text className="d-flex justify-content-center">Release Date: {game.released}</Card.Text>
           <Card.Img
             variant="top"
             src={game.background_image}
             className="img-fluid"
             style={{ width: "60%", height: "100px" }}
           />
-          <div>
-            <Card.Text>Hello</Card.Text>
-            <Card.Text>Hello</Card.Text>
-            <Card.Text>Hello</Card.Text>
-          </div>
-          </div>
           </Card.Body>
         </Card>
       ))}

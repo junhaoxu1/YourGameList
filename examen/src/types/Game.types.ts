@@ -4,7 +4,7 @@ export type GameTitle = {
     deck: string
     description: string
     developers: string
-    release: number
+    released: number
     background_image: string
     characters: string
     genres: {

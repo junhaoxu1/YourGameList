@@ -5,7 +5,7 @@ import * as GameAPI from "../services/GameAPI.service.";
 import GameListComponent from "../components/GameListComponent";
 import Container from "react-bootstrap/Container";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import Pagination from "../components/Pagination";
+import Pagination from "../components/PaginationComponent";
 
 const GameListPage = () => {
   const [ games, setGames ] = useState<GameTitles | null>(null);
@@ -18,12 +18,16 @@ const GameListPage = () => {
   const pageKey = "page"
 
   const getGames = async () => {
+    setError(null)
+    setLoading(true);
     try {
       const data = await GameAPI.getGames(page);
       setGames(data as GameTitles || null);
     } catch (error) {
-      console.error(error);
+      if (error instanceof Error)
+      setError(error.message);
     }
+    setLoading(false);
   };
 
   const [ page, setPage ] = useState(() => {
@@ -66,12 +70,16 @@ const GameListPage = () => {
     getGames();
   }, [page]);
 
+  if (loading) {
+    return <p>Loading Games...</p>;
+  }
+
   return (
     <>
     {error && <Alert variant="warning">{error}</Alert>}
       {games && (
         <Container>
-          <h1>Game List</h1>
+          <h1>All Games</h1>
           <GameListComponent games={games} />
           <Pagination
           page={page}
