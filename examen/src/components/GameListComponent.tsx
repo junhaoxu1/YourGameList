@@ -9,8 +9,6 @@ const GameListComponent = ({ games }: GameListProps) => {
   if (!games) {
     return;
   }
-
-  console.log(games.results)
   return (
     <div className="row">
       {games.results.map((game) => (
@@ -22,7 +20,7 @@ const GameListComponent = ({ games }: GameListProps) => {
             <Link key={game.id} className="link-dark" to={`/game/${game.id}`}>
               <Card.Title className="d-flex justify-content-center">{game.name}</Card.Title>
             </Link>
-            <Card.Text className="d-flex justify-content-evenly" style={{fontSize: "10px"}}>{game.genres.map((genre) => genre.name)}</Card.Text>
+            <Card.Text className="d-flex justify-content-evenly" style={{fontSize: "10px"}}>{game.genres.map((genre) => genre.name).join(" ")}</Card.Text>
             <Card.Text className="d-flex justify-content-center">Release Date: {game.released}</Card.Text>
           <Card.Img
             variant="top"

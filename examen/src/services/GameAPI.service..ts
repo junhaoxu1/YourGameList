@@ -20,6 +20,6 @@ export const getGame = async (gameId: number) => {
     const response = await axios.get(`${BASE_URL}/games/${gameId}?key=${API_KEY}`)
     return response.data as GameTitle
   } catch (error) {
-    console.error("Error fetching game: ", error)
+    throw error
   }
 }

@@ -1,16 +1,20 @@
 export type GameTitle = {
     id?: number
+    uid: string
     name: string
     deck: string
     description: string
-    developers: string
+    developers: {
+        id?: number
+        name: string
+    }[]
     released: number
     background_image: string
-    characters: string
     genres: {
         id?: number
         name: string
     }[]
+    score: number
 }
 
 export type GameTitles = {
