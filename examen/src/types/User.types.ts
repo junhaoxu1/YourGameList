@@ -24,3 +24,6 @@ export type UpdateUserInfo = {
     passwordConfirm: string
     uid: string
 }
+
+export type Users = UserInfo[]
+export type UserFormData = Omit<UserInfo, "_id">
