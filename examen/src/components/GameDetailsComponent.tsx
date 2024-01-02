@@ -1,6 +1,7 @@
 import Container from "react-bootstrap/Container";
 import { Form, Col, Button, InputGroup, ListGroup } from "react-bootstrap";
 import { GameTitle } from "../types/Game.types";
+import { Review } from "../types/Review.types";
 import { useForm, SubmitHandler} from 'react-hook-form'
 import { useEffect, useState } from "react";
 import ReviewListComponent from "./ReviewListComponent";
@@ -8,9 +9,10 @@ import ReviewListComponent from "./ReviewListComponent";
 interface GameDetailProps {
   game: GameTitle | null;
   onAddGame: (data: GameTitle) => Promise<void>
+  onAddReview: (data: Review) => Promise<void>;
 }
 
-const GameDetailsComponent = ({ game, onAddGame }: GameDetailProps) => {
+const GameDetailsComponent = ({ game, onAddGame, onAddReview }: GameDetailProps) => {
   if (!game) {
     return;
   }
@@ -31,21 +33,34 @@ const GameDetailsComponent = ({ game, onAddGame }: GameDetailProps) => {
     }
   }
 
-  const { handleSubmit, register, formState: { isSubmitSuccessful }, reset } = useForm<GameTitle>()
+  const { handleSubmit: gameSubmit, register: registerGame, formState: gameFormState, reset: gameReset } = useForm<GameTitle>();
+  const { handleSubmit: reviewSubmit, register: registerReview, formState: reviewFormState, reset: reviewReset } = useForm<Review>();
 
   const onSubmitGame: SubmitHandler<GameTitle> = async (data: GameTitle) => {
     await onAddGame(data)
   }
 
+  const onSubmitReview: SubmitHandler<Review> = async (data: Review) => {
+    await onAddReview(data);
+  };
+
   useEffect(() => {
-    reset()
-  }, [isSubmitSuccessful, reset])
+    if (gameFormState.isSubmitSuccessful) {
+      gameReset();
+    }
+  }, [gameFormState.isSubmitSuccessful, gameReset]);
+
+  useEffect(() => {
+    if (reviewFormState.isSubmitSuccessful) {
+      reviewReset();
+    }
+  }, [reviewFormState.isSubmitSuccessful, reviewReset]);
 
   return (
     <>
       <div className="d-flex">
-        <Container>
-        <Col className="border border-dark">
+        <Container className="left-detail">
+        <Col>
           <h1>{game.name}</h1>
           {game.background_image ? (
             <img
@@ -70,27 +85,31 @@ const GameDetailsComponent = ({ game, onAddGame }: GameDetailProps) => {
               <p key={genre.id}>{genre.name}</p>
             ))}
           </div>
-          <Form onSubmit={handleSubmit(onSubmitGame)}>
+          <Form 
+          className="dropdown-score"
+          onSubmit={gameSubmit(onSubmitGame)}>
             <InputGroup>
                 <Form.Control
                     type="text"
                     defaultValue={game.name}
                     className="d-none"
-                    {...register('name')}
+                    {...registerGame('name')}
                 />
                 <Form.Control 
                     type="text"
                     defaultValue={game.background_image}
                     className="d-none"
-                    {...register("background_image")}
+                    {...registerGame("background_image")}
                 />
                 <Form.Control 
                     type="text"
                     defaultValue={game.genres.map((genre) => genre.name)}
                     className="d-none"
-                    {...register("genres")}
+                    {...registerGame("genres")}
                 />
-                <Form.Select aria-label="Default select example" {...register("score")}>
+                <Form.Select 
+                    {...registerGame("score")}
+                >
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -103,9 +122,26 @@ const GameDetailsComponent = ({ game, onAddGame }: GameDetailProps) => {
                 >Add To List</Button>
             </InputGroup>
           </Form>
+          <Form 
+        className="user-review"
+        onSubmit={reviewSubmit(onSubmitReview)}
+      >
+        <Form.Group>
+          <Form.Label>Review the game here!</Form.Label>
+          <Form.Control 
+            className="user-review-box"
+            as="textarea" 
+            rows={3} 
+            {...registerReview("text")} 
+          />
+        </Form.Group>
+        <Button type="submit" variant="success">
+          Review Game
+        </Button>
+      </Form>
         </Col>
         </Container>
-        <Container>
+        <Container className="right-detail">
           <ListGroup horizontal>
             <ListGroup.Item
                 active={selectedNav === "Description"}
@@ -118,7 +154,7 @@ const GameDetailsComponent = ({ game, onAddGame }: GameDetailProps) => {
             >
                 Reviews</ListGroup.Item>
           </ListGroup>
-          <Col>
+          <Col className="right-block">
                 {renderFromNav()}
           </Col>
         </Container>
