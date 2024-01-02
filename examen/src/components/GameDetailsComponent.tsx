@@ -3,7 +3,6 @@ import { Form, Col, Button, InputGroup, ListGroup } from "react-bootstrap";
 import { GameTitle } from "../types/Game.types";
 import { useForm, SubmitHandler} from 'react-hook-form'
 import { useEffect, useState } from "react";
-import ReviewComponent from "./NewReviewComponent";
 import ReviewListComponent from "./ReviewListComponent";
 
 interface GameDetailProps {

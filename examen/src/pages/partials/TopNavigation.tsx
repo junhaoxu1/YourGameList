@@ -4,10 +4,9 @@ import NavDropdown from "react-bootstrap/NavDropdown"
 import Nav from "react-bootstrap/Nav"
 import { NavLink, Link } from "react-router-dom"
 import useAuth from "../../hooks/useAuth"
-import Image from "react-bootstrap/Image"
 
 const TopNavigation = () => {
-	const { currentUser, userEmail, userName, userPhotoUrl } = useAuth()
+	const { currentUser, userEmail } = useAuth()
 
 	return (
 		<Navbar>
@@ -22,25 +21,8 @@ const TopNavigation = () => {
 						{currentUser ? (
 							<>
 								<NavDropdown
-									title={
-										userPhotoUrl ? (
-											<Image
-												src={userPhotoUrl}
-												height={30}
-												width={30}
-												title={(userName || userEmail) ?? ""}
-												className="img-square"
-												fluid
-												roundedCircle
-											/>
-										) : (
-											userName || userEmail
-										)
-									}
+									title={userEmail}
 								>
-									<NavDropdown.Item as={NavLink} to="/update-user">
-										Update Profile
-									</NavDropdown.Item>
 									<NavDropdown.Item as={NavLink} to="/user-list">
 										My Game List
 									</NavDropdown.Item>

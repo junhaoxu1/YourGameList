@@ -14,7 +14,6 @@ import NewReviewComponent from '../components/NewReviewComponent'
 
 const GamePage = ( ) => {
     const [ game, setGame ] = useState<GameTitle | null>(null)
-    const [ review, setReview ] = useState<Review | null>(null)
     const [ error, setError ] = useState<string | null>(null)
     const [ loading, setLoading ] = useState(true)
     const { id } = useParams()
@@ -113,7 +112,7 @@ const GamePage = ( ) => {
   <>
     {error && <Alert>{error}</Alert>}
     <GameDetailsComponent game={game} onAddGame={addGameToList}/>
-    <NewReviewComponent review={review} onAddReview={addReview}/>
+    <NewReviewComponent onAddReview={addReview}/>
   </>
 )
 

@@ -4,11 +4,10 @@ import { Form, InputGroup, Button } from "react-bootstrap"
 import { Review } from "../types/Review.types"
 
 interface ReviewProps {
-    review: Review | null;
     onAddReview: (data: Review) => Promise<void>
 }
 
-const NewReviewComponent = ({ review, onAddReview} : ReviewProps) => {
+const NewReviewComponent = ({ onAddReview} : ReviewProps) => {
 
     const { handleSubmit, register, formState: { isSubmitSuccessful }, reset } = useForm<Review>()
 
