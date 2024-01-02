@@ -3,13 +3,15 @@ import { Form, Col, Button, InputGroup, ListGroup } from "react-bootstrap";
 import { GameTitle } from "../types/Game.types";
 import { useForm, SubmitHandler} from 'react-hook-form'
 import { useEffect, useState } from "react";
+import ReviewComponent from "./NewReviewComponent";
+import ReviewListComponent from "./ReviewListComponent";
 
-interface GameDetalProps {
+interface GameDetailProps {
   game: GameTitle | null;
   onAddGame: (data: GameTitle) => Promise<void>
 }
 
-const GameDetailsComponent = ({ game, onAddGame }: GameDetalProps) => {
+const GameDetailsComponent = ({ game, onAddGame }: GameDetailProps) => {
   if (!game) {
     return;
   }
@@ -18,12 +20,15 @@ const GameDetailsComponent = ({ game, onAddGame }: GameDetalProps) => {
 
   const renderFromNav = () => {
     if(selectedNav === "Description") {
-        return         <Col>
-        <h2>Game Description</h2>
-        <p>{game.description.replace(/<\/?[^>]+(>|$)/g, "")}</p>
-      </Col>
+        return <Col>
+                    <h2>Game Description</h2>
+                    <p>{game.description.replace(/<\/?[^>]+(>|$)/g, "")}</p>
+               </Col>
     } else if (selectedNav === "Reviews") {
-        return <h2>User Reviews</h2>
+        return <Col>
+                    <h2>Reviews</h2>
+                    <ReviewListComponent gameId={game.id}/>
+               </Col>
     }
   }
 

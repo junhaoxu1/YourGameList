@@ -4,6 +4,7 @@ import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import { UserInfo } from "../types/User.types";
 import { GameTitle } from "../types/Game.types";
+import { Review } from "../types/Review.types";
 
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -29,5 +30,7 @@ const createCollection = <T = DocumentData>(collectionName: string) => {
 export const gamesCol = createCollection<GameTitle>("games")
 
 export const usersCol = createCollection<UserInfo>("users")
+
+export const reviewsCol = createCollection<Review>("reviews")
 
 export default app

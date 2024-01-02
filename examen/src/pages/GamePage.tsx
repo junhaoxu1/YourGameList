@@ -4,21 +4,30 @@ import { useParams } from "react-router-dom"
 import { GameTitle } from '../types/Game.types'
 import Alert from 'react-bootstrap/Alert'
 import GameDetailsComponent from '../components/GameDetailsComponent'
-import { gamesCol } from '../services/firebase'
+import { gamesCol, reviewsCol } from '../services/firebase'
 import { doc, setDoc } from 'firebase/firestore'
 import useAuth from '../hooks/useAuth'
 import useGetGames from '../hooks/useGetGames'
+import useGetReviews from '../hooks/useGetReviews'
+import { Review } from '../types/Review.types'
+import NewReviewComponent from '../components/NewReviewComponent'
 
 const GamePage = ( ) => {
     const [ game, setGame ] = useState<GameTitle | null>(null)
+    const [ review, setReview ] = useState<Review | null>(null)
     const [ error, setError ] = useState<string | null>(null)
     const [ loading, setLoading ] = useState(true)
     const { id } = useParams()
     const { currentUser } = useAuth()
     const gameId = Number(id);
+
     const {
         data: games,
     } = useGetGames(currentUser?.uid)
+
+    const {
+        data: reviews,
+    } = useGetReviews(gameId)
 
     const validGame = async (id: number) => {
         try {
@@ -63,8 +72,8 @@ const GamePage = ( ) => {
     }
 
     const addGameToList = async (data: GameTitle) => {
-        const existingGmae = games?.some((game) => game.name === data.name)
-        if(existingGmae) {
+        const existingGame = games?.some((game) => game.name === data.name)
+        if(existingGame) {
             // FIX LATER!!!
             console.log("Already Exist")
         } else {
@@ -72,6 +81,22 @@ const GamePage = ( ) => {
             await setDoc(docRef, {
                 ...data,
                 uid: currentUser?.uid
+            })
+        }
+    }
+
+    const addReview = async (data: Review) => {
+        const existingReview = reviews?.some((review) => review.text === data.text)
+        if(existingReview) {
+            // FIX LATER!!!
+            console.log("Already Exist")
+        } else {
+            const docRef = doc(reviewsCol)
+            await setDoc(docRef, {
+                ...data,
+                uid: currentUser?.uid,
+                userEmail: currentUser?.email,
+                gameId: gameId
             })
         }
     }
@@ -88,6 +113,7 @@ const GamePage = ( ) => {
   <>
     {error && <Alert>{error}</Alert>}
     <GameDetailsComponent game={game} onAddGame={addGameToList}/>
+    <NewReviewComponent review={review} onAddReview={addReview}/>
   </>
 )
 
