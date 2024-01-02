@@ -1,4 +1,4 @@
-import { Table } from "react-bootstrap";
+import { Container, Col } from "react-bootstrap";
 import useGetReviews from "../hooks/useGetReviews";
 
 interface ReviewListProps {
@@ -14,28 +14,23 @@ const ReviewListComponent = ({ gameId }: ReviewListProps) => {
 
   return (
     <>
-      <Table>
-        <thead>
-          <tr>
-            <th>User</th>
-            <th>Review</th>
-          </tr>
-        </thead>
-        <tbody>
           {reviews && reviews.length > 0 ? (
             reviews.map((review, index) => (
-              <tr key={index}>
-                <td>{review.userEmail}</td>
-                <td>{review.text}</td>
-              </tr>
+                <div key={index} className="review-box d-flex">
+              <Container>
+                <Col>
+                <div className="review-email d-flex fw-bold fs-5">{review.userEmail}</div>
+                <div className="review-area">{review.text}</div>
+                </Col>
+
+              </Container>
+                </div>
             ))
           ) : (
-            <tr>
-              <td>No reviews on this game yet</td>
-            </tr>
+            <p>
+              No reviews on this game yet
+            </p>
           )}
-        </tbody>
-      </Table>
     </>
   );
 };
