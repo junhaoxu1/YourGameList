@@ -16,11 +16,6 @@ const ListNavigation = () => {
                     to="/games">
 					    Games
 				</Navbar.Brand>
-                <Form>
-                    <FormControl 
-                        placeholder="Search"
-                    />
-                </Form>
 			</Container>
 		</Navbar>
 	)
