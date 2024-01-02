@@ -10,7 +10,6 @@ import useAuth from '../hooks/useAuth'
 import useGetGames from '../hooks/useGetGames'
 import useGetReviews from '../hooks/useGetReviews'
 import { Review } from '../types/Review.types'
-import NewReviewComponent from '../components/NewReviewComponent'
 
 const GamePage = ( ) => {
     const [ game, setGame ] = useState<GameTitle | null>(null)
@@ -111,8 +110,7 @@ const GamePage = ( ) => {
   return (  
   <>
     {error && <Alert>{error}</Alert>}
-    <GameDetailsComponent game={game} onAddGame={addGameToList}/>
-    <NewReviewComponent onAddReview={addReview}/>
+    <GameDetailsComponent game={game} onAddGame={addGameToList} onAddReview={addReview}/>
   </>
 )
 
