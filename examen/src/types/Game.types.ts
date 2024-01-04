@@ -1,5 +1,6 @@
 export type GameTitle = {
-    id?: number
+    id: number
+    _id: string
     uid: string
     name: string
     deck: string

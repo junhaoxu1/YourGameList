@@ -1,11 +1,12 @@
-import React, { useState } from "react"
-import { useForm } from "react-hook-form"
-import { GameTitle } from "../types/Game.types"
-import { Image, Table } from "react-bootstrap"
+import { Image, Table, Button } from "react-bootstrap"
 import useAuth from '../hooks/useAuth'
 import useGetGames from '../hooks/useGetGames'
 
-const UserListTable = () => {
+interface ListTableProps {
+    onDeleteGame: (gameId: string) => void 
+}
+
+const UserListTable = ({ onDeleteGame }: ListTableProps) => {
     const { currentUser } = useAuth()
     const {
         data: games,
@@ -35,6 +36,7 @@ const UserListTable = () => {
                 </td>
                 <td>{game.name}</td>
                 <td>{game.score || 0}</td>
+                <td><Button variant="danger" onClick={() => onDeleteGame(game._id)}>Remove</Button></td>
              </tr>
          </tbody>
         ))}
