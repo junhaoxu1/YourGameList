@@ -1,10 +1,12 @@
 import Container from "react-bootstrap/Container";
-import { Form, Col, Button, InputGroup, ListGroup } from "react-bootstrap";
+import { Form, Col, Button, InputGroup, ListGroup} from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { GameTitle } from "../types/Game.types";
 import { Review } from "../types/Review.types";
 import { useForm, SubmitHandler} from 'react-hook-form'
 import { useEffect, useState } from "react";
 import ReviewListComponent from "./ReviewListComponent";
+import useAuth from "../hooks/useAuth";
 
 interface GameDetailProps {
   game: GameTitle | null;
@@ -16,6 +18,8 @@ const GameDetailsComponent = ({ game, onAddGame, onAddReview }: GameDetailProps)
   if (!game) {
     return;
   }
+
+  const { currentUser } = useAuth()
 
   const [selectedNav, setSelectedNav] = useState("Description")
 
@@ -85,60 +89,68 @@ const GameDetailsComponent = ({ game, onAddGame, onAddReview }: GameDetailProps)
               <p key={genre.id}>{genre.name}</p>
             ))}
           </div>
-          <Form 
-          className="dropdown-score"
-          onSubmit={gameSubmit(onSubmitGame)}>
-            <InputGroup>
-                <Form.Control
-                    type="text"
-                    defaultValue={game.name}
-                    className="d-none"
-                    {...registerGame('name')}
-                />
-                <Form.Control 
-                    type="text"
-                    defaultValue={game.background_image}
-                    className="d-none"
-                    {...registerGame("background_image")}
-                />
-                <Form.Control 
-                    type="text"
-                    defaultValue={game.genres.map((genre) => genre.name)}
-                    className="d-none"
-                    {...registerGame("genres")}
-                />
-                <Form.Select 
-                    {...registerGame("score")}
-                >
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                </Form.Select>
-                <Button
-                    type="submit"
-                    variant="success"
-                >Add To List</Button>
-            </InputGroup>
-          </Form>
-          <Form 
-        className="user-review"
-        onSubmit={reviewSubmit(onSubmitReview)}
-      >
-        <Form.Group>
-          <Form.Label>Review the game here!</Form.Label>
-          <Form.Control 
-            className="user-review-box"
-            as="textarea" 
-            rows={3} 
-            {...registerReview("text")} 
-          />
-        </Form.Group>
-        <Button type="submit" variant="success">
-          Review Game
-        </Button>
-      </Form>
+          {currentUser ? (
+            <>
+            <Form 
+            className="dropdown-score"
+            onSubmit={gameSubmit(onSubmitGame)}>
+              <InputGroup>
+                  <Form.Control
+                      type="text"
+                      defaultValue={game.name}
+                      className="d-none"
+                      {...registerGame('name')}
+                  />
+                  <Form.Control 
+                      type="text"
+                      defaultValue={game.background_image}
+                      className="d-none"
+                      {...registerGame("background_image")}
+                  />
+                  <Form.Control 
+                      type="text"
+                      defaultValue={game.genres.map((genre) => genre.name)}
+                      className="d-none"
+                      {...registerGame("genres")}
+                  />
+                  <Form.Select 
+                      {...registerGame("score")}
+                  >
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                  </Form.Select>
+                  <Button
+                      type="submit"
+                      variant="success"
+                  >Add To List</Button>
+              </InputGroup>
+            </Form>
+            <Form 
+          className="user-review"
+          onSubmit={reviewSubmit(onSubmitReview)}
+        >
+          <Form.Group>
+            <Form.Label>Review the game here!</Form.Label>
+            <Form.Control 
+              className="user-review-box"
+              as="textarea" 
+              rows={3} 
+              {...registerReview("text")} 
+            />
+          </Form.Group>
+          <Button type="submit" variant="success">
+            Review Game
+          </Button>
+        </Form>
+        </>
+          ) : <p>
+            <Link to="/login">Login </Link>
+            To Review Game! or 
+            <Link to="/signup"> Signup! </Link>
+            </p>}
         </Col>
         </Container>
         <Container className="right-detail">
