@@ -9,6 +9,7 @@ import ReviewListComponent from "./ReviewListComponent";
 import useAuth from "../hooks/useAuth";
 import { gamesCol } from "../services/firebase";
 import { getDocs, query, where } from "firebase/firestore";
+import useGetGames from "../hooks/useGetGames";
 
 interface GameDetailProps {
   game: GameTitle | null;
@@ -20,6 +21,12 @@ const GameDetailsComponent = ({ game, onAddGame, onAddReview }: GameDetailProps)
   if (!game) {
     return;
   }
+
+  const { currentUser } = useAuth();
+  const [selectedNav, setSelectedNav] = useState("Description")
+  const { data: games } = useGetGames(currentUser?.uid);
+
+  const gameExists = games?.some((g) => g.name === game.name);
 
   const [averageScore, setAverageScore] = useState<number | null>(null);
 
@@ -43,10 +50,6 @@ const GameDetailsComponent = ({ game, onAddGame, onAddReview }: GameDetailProps)
   
     getAverageScore();
   }, [game]);
-
-  const { currentUser } = useAuth()
-
-  const [selectedNav, setSelectedNav] = useState("Description")
 
   const renderFromNav = () => {
     if(selectedNav === "Description") {
@@ -142,10 +145,18 @@ const GameDetailsComponent = ({ game, onAddGame, onAddReview }: GameDetailProps)
                       className="d-none"
                       {...registerGame("genres")}
                   />
+                  {gameExists ? (
+                    <Button
+                    variant="success"
+                    disabled
+                    >
+                        Game is already in list</Button>
+                  )
+                  : 
                   <Button
-                      type="submit"
-                      variant="success"
-                  >Add To List</Button>
+                  type="submit"
+                  variant="success"
+              >Add To List</Button> }
               </InputGroup>
             </Form>
             <Form 

@@ -72,8 +72,7 @@ const GamePage = ( ) => {
     const addGameToList = async (data: GameTitle) => {
         const existingGame = games?.some((game) => game.name === data.name)
         if(existingGame) {
-            // FIX LATER!!!
-            console.log("Already Exist")
+            return
         } else {
             const docRef = doc(gamesCol)
             await setDoc(docRef, {
