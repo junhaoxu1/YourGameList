@@ -79,10 +79,6 @@ const LoginPage = () => {
 									{loading ? "Logging in..." : "Log In"}
 								</Button>
 							</Form>
-
-							<div className="text-center">
-								<Link to="/forgot-password">Forgot Password?</Link>
-							</div>
 						</Card.Body>
 					</Card>
 
