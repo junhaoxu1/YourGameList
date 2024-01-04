@@ -15,7 +15,7 @@ export type GameTitle = {
         id?: number
         name: string
     }[]
-    score: number
+    score: string
 }
 
 export type GameTitles = {

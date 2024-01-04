@@ -7,6 +7,8 @@ import { useForm, SubmitHandler} from 'react-hook-form'
 import { useEffect, useState } from "react";
 import ReviewListComponent from "./ReviewListComponent";
 import useAuth from "../hooks/useAuth";
+import { gamesCol } from "../services/firebase";
+import { getDocs, query, where } from "firebase/firestore";
 
 interface GameDetailProps {
   game: GameTitle | null;
@@ -18,6 +20,29 @@ const GameDetailsComponent = ({ game, onAddGame, onAddReview }: GameDetailProps)
   if (!game) {
     return;
   }
+
+  const [averageScore, setAverageScore] = useState<number | null>(null);
+
+  useEffect(() => {
+    const getAverageScore = async () => {
+      const coll = gamesCol;
+      const querySnapshot = await getDocs(query(coll, where("name", "==", game?.name)));
+  
+      const scores: number[] = [];
+  
+      querySnapshot.forEach(doc => {
+        const score = parseFloat(doc.data().score);
+        scores.push(score);
+      });
+  
+      const sum = scores.reduce((total, score) => total + score, 0);
+      const averageScore = sum / scores.length;
+  
+      setAverageScore(averageScore);
+    };
+  
+    getAverageScore();
+  }, [game]);
 
   const { currentUser } = useAuth()
 
@@ -89,6 +114,10 @@ const GameDetailsComponent = ({ game, onAddGame, onAddReview }: GameDetailProps)
               <p key={genre.id}>{genre.name}</p>
             ))}
           </div>
+          <div className="d-flex gap-2">
+            <p>Score: </p>
+            {averageScore} / 5
+          </div>
           {currentUser ? (
             <>
             <Form 
@@ -113,15 +142,6 @@ const GameDetailsComponent = ({ game, onAddGame, onAddReview }: GameDetailProps)
                       className="d-none"
                       {...registerGame("genres")}
                   />
-                  <Form.Select 
-                      {...registerGame("score")}
-                  >
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                  </Form.Select>
                   <Button
                       type="submit"
                       variant="success"

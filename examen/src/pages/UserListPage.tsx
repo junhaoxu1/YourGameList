@@ -1,8 +1,7 @@
 import UserListTable from '../components/UserListTable'
-import { doc, deleteDoc } from "firebase/firestore"
+import { doc, deleteDoc, updateDoc } from "firebase/firestore"
 import { gamesCol } from '../services/firebase'
-import { useParams } from 'react-router-dom'
-import useGetGames from '../hooks/useGetGames'
+import { GameTitle } from '../types/Game.types';
 
 
 const UserListPage = () => {
@@ -17,9 +16,19 @@ const UserListPage = () => {
     }
   };
 
+  const editScore = async (data: GameTitle) => {
+    const docRef = doc(gamesCol, data._id)
+
+    const gameData = {
+      ...data,
+    }
+
+    await updateDoc(docRef, gameData)
+  }
+
   return (
     <>
-        <UserListTable onDeleteGame={deleteGame}/>
+        <UserListTable onDeleteGame={deleteGame} onEditScore={editScore}/>
     </>
   )
 }
