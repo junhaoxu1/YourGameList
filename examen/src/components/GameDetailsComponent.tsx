@@ -119,7 +119,7 @@ const GameDetailsComponent = ({ game, onAddGame, onAddReview }: GameDetailProps)
           </div>
           <div className="d-flex gap-2">
             <p>Score: </p>
-            {averageScore} / 5
+            {averageScore !== null && !isNaN(averageScore) ? `${averageScore} / 5` : "0"}
           </div>
           {currentUser ? (
             <>
@@ -145,9 +145,15 @@ const GameDetailsComponent = ({ game, onAddGame, onAddReview }: GameDetailProps)
                       className="d-none"
                       {...registerGame("genres")}
                   />
+                                    <Form.Control 
+                      type="text"
+                      defaultValue={game.id}
+                      className="d-none"
+                      {...registerGame("id")}
+                  />
                   {gameExists ? (
                     <Button
-                    variant="success"
+                    variant="dark"
                     disabled
                     >
                         Game is already in list</Button>
@@ -155,7 +161,7 @@ const GameDetailsComponent = ({ game, onAddGame, onAddReview }: GameDetailProps)
                   : 
                   <Button
                   type="submit"
-                  variant="success"
+                  variant="dark"
               >Add To List</Button> }
               </InputGroup>
             </Form>
@@ -172,7 +178,7 @@ const GameDetailsComponent = ({ game, onAddGame, onAddReview }: GameDetailProps)
               {...registerReview("text")} 
             />
           </Form.Group>
-          <Button type="submit" variant="success">
+          <Button type="submit" variant="dark">
             Review Game
           </Button>
         </Form>
@@ -187,11 +193,13 @@ const GameDetailsComponent = ({ game, onAddGame, onAddReview }: GameDetailProps)
         <Container className="right-detail">
           <ListGroup horizontal>
             <ListGroup.Item
+                variant="dark"
                 active={selectedNav === "Description"}
                 onClick={() => setSelectedNav("Description")}
             >
                 Description</ListGroup.Item>
             <ListGroup.Item
+                variant="dark"
                 active={selectedNav === "Reviews"}
                 onClick={() => setSelectedNav("Reviews")}
             >

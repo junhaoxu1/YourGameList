@@ -18,7 +18,7 @@ const ReviewListComponent = ({ gameId }: ReviewListProps) => {
             reviews.map((review, index) => (
                 <div key={index} className="review-box d-flex">
               <Container>
-                <Col>
+                <Col className="review-box border border-light">
                 <div className="review-email d-flex fw-bold fs-5">{review.userEmail}</div>
                 <div className="review-area">{review.text}</div>
                 </Col>

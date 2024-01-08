@@ -105,7 +105,7 @@ const SignupPage = () => {
 		<Container className="py-3 center-y">
 			<Row>
 				<Col md={{ span: 6, offset: 3 }}>
-					<Card>
+					<Card className="bg-dark text-white">
 						<Card.Body>
 							<Card.Title className="mb-3">Sign Up</Card.Title>
 
@@ -115,7 +115,7 @@ const SignupPage = () => {
 								<Form.Group controlId="email">
 									<Form.Label>Email</Form.Label>
 									<Form.Control
-										placeholder="JaneDoe@.gmail.com"
+										placeholder="JaneDoe@gmail.com"
 										type="email"
 										{...register('email', {
 											required: "You have to enter an email",
@@ -130,7 +130,7 @@ const SignupPage = () => {
 										type="password"
 										autoComplete="new-password"
 										{...register('password', {
-											required: "You're kidding, right? Enter a password, stupid",
+											required: "Please enter a password",
 											minLength: {
 												value: 3,
 												message: "Please enter at least 3 characters"
@@ -147,13 +147,13 @@ const SignupPage = () => {
 										type="password"
 										autoComplete="off"
 										{...register('passwordConfirm', {
-											required: "Enter your password again.........",
+											required: "Please confirm your password",
 											minLength: {
 												value: 3,
 												message: "Please enter at least 3 characters"
 											},
 											validate: (value) => {
-												return value === passwordRef.current || "The passwords does not match 🤦🏼‍♂️"
+												return value === passwordRef.current || "The passwords does not match"
 											}
 										})}
 									/>
@@ -162,7 +162,8 @@ const SignupPage = () => {
 
 								<Button
 									disabled={loading}
-									variant="primary"
+									variant="dark"
+									className="user-button border border-light"
 									type="submit"
 								>
 									{loading

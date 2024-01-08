@@ -44,7 +44,7 @@ const LoginPage = () => {
 		<Container className="py-3 center-y">
 			<Row>
 				<Col md={{ span: 6, offset: 3 }}>
-					<Card>
+					<Card className="bg-dark text-white">
 						<Card.Body>
 							<Card.Title className="mb-3">Login</Card.Title>
 
@@ -75,7 +75,7 @@ const LoginPage = () => {
 									{errors.password && <p className="invalid">{errors.password.message ?? "Invalid value"}</p>}
 								</Form.Group>
 
-								<Button disabled={loading} variant="primary" type="submit">
+								<Button disabled={loading} className="border border-light" variant="dark" type="submit">
 									{loading ? "Logging in..." : "Log In"}
 								</Button>
 							</Form>
@@ -83,7 +83,7 @@ const LoginPage = () => {
 					</Card>
 
 					<div className="text-center mt-3">
-						Need an account? <Link to="/signup">Sign Up</Link>
+						Need an account? <Link className="links" to="/signup">Sign Up</Link>
 					</div>
 				</Col>
 			</Row>

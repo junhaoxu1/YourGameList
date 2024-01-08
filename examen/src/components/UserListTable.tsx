@@ -2,7 +2,8 @@ import { Image, Table, Button, Form } from "react-bootstrap"
 import useAuth from '../hooks/useAuth'
 import useGetGames from '../hooks/useGetGames'
 import { GameTitle } from "../types/Game.types"
-import React, { ChangeEvent, useState } from "react"
+import { ChangeEvent, useState } from "react"
+import { Link } from "react-router-dom"
 
 interface ListTableProps {
     onDeleteGame: (gameId: string) => Promise<void> 
@@ -33,13 +34,14 @@ const UserListTable = ({ onDeleteGame, onEditScore }: ListTableProps) => {
   
 
   return (
-    <Table> 
+    <Table variant="dark"> 
         <thead>
             <tr>
                 <th>#</th>
                 <th>Cover</th>
                 <th>Name</th>
                 <th>Score</th>
+                <th></th>
             </tr>
         </thead>
         {games && games.map((game, index) => (
@@ -55,7 +57,12 @@ const UserListTable = ({ onDeleteGame, onEditScore }: ListTableProps) => {
                     style={{ width: '150px', height: 'auto' }}
                     />}
                 </td>
-                <td>{game.name}</td>
+                <td>
+                  <Link
+                    to={`/game/${game.id}`}
+                  >
+                    {game.name}
+                </Link></td>
                 <td>
                     {game.score}
                 <Form.Select
@@ -71,7 +78,8 @@ const UserListTable = ({ onDeleteGame, onEditScore }: ListTableProps) => {
                   <option value="5">5</option>
                 </Form.Select>
                 <Button
-                  variant="primary"
+                  variant="dark"
+                  className="d-flex"
                   size="sm"
                   onClick={() => handleEditScore(game)}
                   disabled={selectedScores[game._id] === "No Score" || !selectedScores[game._id]}

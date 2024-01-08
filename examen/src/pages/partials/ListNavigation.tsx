@@ -7,9 +7,9 @@ const ListNavigation = () => {
 
 	return (
 		<Navbar>
-			<Container className="border border-dark">
+			<Container className="border border-light">
 				<Navbar.Brand 
-                    style={{ fontSize: "20px"}} 
+					className="nav-brand"
                     as={Link} 
                     to="/games">
 					    Games

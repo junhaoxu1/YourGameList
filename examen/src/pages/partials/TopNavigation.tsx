@@ -9,15 +9,15 @@ const TopNavigation = () => {
 	const { currentUser, userEmail } = useAuth()
 
 	return (
-		<Navbar>
+		<Navbar data-bs-theme="dark">
 			<Container>
-				<Navbar.Brand as={Link} to="/">
+				<Navbar.Brand className="top-nav" as={Link} to="/">
 					YGL
 				</Navbar.Brand>
 
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
-				<Navbar.Collapse id="basic-navbar-nav">
-					<Nav className="ms-auto">
+				<Navbar.Collapse className="top-nav" id="basic-navbar-nav">
+					<Nav className="top-nav ms-auto">
 						{currentUser ? (
 							<>
 								<NavDropdown
@@ -33,10 +33,10 @@ const TopNavigation = () => {
 							</>
 						) : (
 							<>
-								<Nav.Link as={NavLink} end to="/login">
+								<Nav.Link className="top-nav" as={NavLink} end to="/login">
 									Login
 								</Nav.Link>
-								<Nav.Link as={NavLink} end to="/signup">
+								<Nav.Link className="top-nav" as={NavLink} end to="/signup">
 									Signup
 								</Nav.Link>
 							</>
