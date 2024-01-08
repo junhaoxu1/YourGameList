@@ -119,7 +119,7 @@ const GameDetailsComponent = ({ game, onAddGame, onAddReview }: GameDetailProps)
           </div>
           <div className="d-flex gap-2">
             <p>Score: </p>
-            {averageScore !== null && !isNaN(averageScore) ? `${averageScore} / 5` : "0"}
+            {averageScore !== null && !isNaN(averageScore) ? `${averageScore} / 5` : "N/A / 5"}
           </div>
           {currentUser ? (
             <>
