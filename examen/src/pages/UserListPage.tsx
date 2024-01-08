@@ -7,7 +7,6 @@ import { GameTitle } from '../types/Game.types';
 const UserListPage = () => {
 
   const deleteGame = async (gameId: string) => {
-    console.log(gameId)
     try {
         const docRef = doc(gamesCol, gameId);
         await deleteDoc(docRef);

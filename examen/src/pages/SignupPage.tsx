@@ -112,7 +112,7 @@ const SignupPage = () => {
 							{error && (<Alert variant="danger">{error}</Alert>)}
 
 							<Form onSubmit={handleSubmit(onSignup)}>
-								<Form.Group controlId="email">
+								<Form.Group controlId="email" className="mb-3">
 									<Form.Label>Email</Form.Label>
 									<Form.Control
 										placeholder="JaneDoe@gmail.com"
@@ -124,7 +124,7 @@ const SignupPage = () => {
 									{errors.email && <p className="invalid">{errors.email.message ?? "Invalid value"}</p>}
 								</Form.Group>
 
-								<Form.Group controlId="password">
+								<Form.Group controlId="password" className="mb-3">
 									<Form.Label>Password</Form.Label>
 									<Form.Control
 										type="password"
@@ -138,10 +138,9 @@ const SignupPage = () => {
 										})}
 									/>
 									{errors.password && <p className="invalid">{errors.password.message ?? "Invalid value"}</p>}
-									<Form.Text>At least 6 characters</Form.Text>
 								</Form.Group>
 
-								<Form.Group controlId="confirmPassword">
+								<Form.Group controlId="confirmPassword" className="mb-3">
 									<Form.Label>Confirm Password</Form.Label>
 									<Form.Control
 										type="password"
