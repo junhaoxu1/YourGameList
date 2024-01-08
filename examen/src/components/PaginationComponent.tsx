@@ -30,29 +30,29 @@ const Pagination = ({
   onLastPage,
 }: IPaginationProps) => {
   return (
-    <div className="d-flex justify-content-between align-items-center">
+    <div className="d-flex justify-content-center align-items-center">
       <div className="left">
         <Button
           disabled={!hasPreviousPage}
           onClick={onFirstPage}
-          variant="primary"
+          variant="dark"
         >
           <FontAwesomeIcon icon={faAngleDoubleLeft} />
         </Button>
-        <Button disabled={!hasPreviousPage} onClick={onPreviousPage}>
+        <Button disabled={!hasPreviousPage} onClick={onPreviousPage} variant="dark">
           <FontAwesomeIcon icon={faAngleLeft} />
         </Button>
       </div>
 
       <div className="page">
-        Page {page}/{total_pages}
+        {page}
       </div>
 
       <div className="right">
-        <Button disabled={!hasNextPage} onClick={onNextPage} variant="primary">
+        <Button disabled={!hasNextPage} onClick={onNextPage} variant="dark">
           <FontAwesomeIcon icon={faAngleRight} />
         </Button>
-        <Button disabled={!hasNextPage} onClick={onLastPage} variant="primary">
+        <Button disabled={!hasNextPage} onClick={onLastPage} variant="dark">
           <FontAwesomeIcon icon={faAngleDoubleRight} />
         </Button>
       </div>
