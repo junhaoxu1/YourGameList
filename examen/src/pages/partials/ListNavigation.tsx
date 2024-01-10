@@ -24,7 +24,10 @@ const ListNavigation = () => {
   }
 
   const hoverOff = () => {
-	setDropdownVisible(false)
+	setTimeout(() => {
+		setDropdownVisible(false)
+	}, 5000)
+
   }
 
   const searchForGames = async (searchQuery: string) => {
@@ -69,7 +72,7 @@ const ListNavigation = () => {
     <Navbar>
       <Container className="border border-light">
         <Navbar.Brand className="nav-brand" as={Link} to="/games">
-          Games
+          Browse Games
         </Navbar.Brand>
         <Form onSubmit={handleSubmit} className="d-flex">
           <FormControl
