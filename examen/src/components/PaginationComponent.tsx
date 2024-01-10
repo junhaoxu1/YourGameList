@@ -21,7 +21,6 @@ interface IPaginationProps {
 
 const Pagination = ({
   page,
-  total_pages,
   hasPreviousPage,
   hasNextPage,
   onPreviousPage,

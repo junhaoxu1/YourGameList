@@ -82,11 +82,12 @@ const GamePage = ( ) => {
         }
     }
 
+    const [existingReviewText, setexistingReviewText] = useState(false);
+
     const addReview = async (data: Review) => {
-        const existingReview = reviews?.some((review) => review.text === data.text)
+        const existingReview = reviews?.some((review) => review.uid === currentUser?.uid && review.gameId === gameId)
         if(existingReview) {
-            // FIX LATER!!!
-            console.log("Already Exist")
+            setexistingReviewText(true)
         } else {
             const docRef = doc(reviewsCol)
             await setDoc(docRef, {
@@ -110,6 +111,7 @@ const GamePage = ( ) => {
   <>
     {error && <Alert>{error}</Alert>}
     <GameDetailsComponent game={game} onAddGame={addGameToList} onAddReview={addReview}/>
+    {existingReviewText && <p>You've already written a review on this game!</p>}
   </>
 )
 

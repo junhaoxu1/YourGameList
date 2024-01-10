@@ -42,6 +42,7 @@ const UserListTable = ({ onDeleteGame, onEditScore }: ListTableProps) => {
                 <th>Name</th>
                 <th>Score</th>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
         {games && games.map((game, index) => (
@@ -64,11 +65,11 @@ const UserListTable = ({ onDeleteGame, onEditScore }: ListTableProps) => {
                     {game.name}
                 </Link></td>
                 <td>
-                    {game.score}
+                    {game.score || 0}
                 <Form.Select
                   onChange={(e) => handleScoreChange(game._id, e)}
                   value={selectedScores[game._id] || 'No Score'}
-                  className="d-inline-block mx-2"
+                  className=""
                 >
                   <option value="No Score">Your Score</option>
                   <option value="1">1</option>
@@ -77,10 +78,11 @@ const UserListTable = ({ onDeleteGame, onEditScore }: ListTableProps) => {
                   <option value="4">4</option>
                   <option value="5">5</option>
                 </Form.Select>
+                </td>
+                <td>
                 <Button
                   variant="dark"
-                  className="d-flex"
-                  size="sm"
+                  className="border-light"
                   onClick={() => handleEditScore(game)}
                   disabled={selectedScores[game._id] === "No Score" || !selectedScores[game._id]}
                 >
