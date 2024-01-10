@@ -52,6 +52,7 @@ a {
 
 .review-area {
     margin: 0;
+    margin-left: 10px;
     padding: 0;
     width: 40%;
     overflow-wrap: break-word;
@@ -63,6 +64,11 @@ a {
 
 .review-box {
     margin-top: 10px;
+}
+
+.review-email {
+    margin-left: 10px;
+    margin-top: 25px;
 }
 
 .card-box {

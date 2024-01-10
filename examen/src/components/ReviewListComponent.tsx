@@ -15,8 +15,6 @@ const ReviewListComponent = ({ gameId, onDeleteGame }: ReviewListProps) => {
   const { data: reviews } = useGetReviews(gameId);
   const { currentUser } = useAuth()
 
-  console.log(reviews)
-
   return (
     <>
       {reviews && reviews.length > 0 ? (
@@ -27,15 +25,17 @@ const ReviewListComponent = ({ gameId, onDeleteGame }: ReviewListProps) => {
                 <div className="review-email d-flex fw-bold fs-5">
                   {review.userEmail}
                 </div>
-                <div className="review-area">{review.text}</div>
+                <div className="review-area">{review.text}
                 {currentUser && currentUser.uid === review.uid && (
                   <Button
-                    variant="danger"
+                    variant="warning"
+                    className="d-flex justify-content-end"
                     onClick={() => onDeleteGame(review._id)}
                   >
                     Delete
                   </Button>
                 )}
+                </div>
               </Col>
             </Container>
           </div>
