@@ -54,7 +54,7 @@ const LoginPage = () => {
 								<Form.Group controlId="email" className="mb-3">
 									<Form.Label>Email</Form.Label>
 									<Form.Control
-										placeholder="abc@gmail.com"
+										placeholder="JaneDoe@gmail.com"
 										type="email"
 										{...register("email", {
 											required: "You have to enter your email",
