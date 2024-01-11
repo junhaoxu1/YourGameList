@@ -21,6 +21,7 @@ const ListNavigation = () => {
 
   const hoverOn = () => {
 	setDropdownVisible(true)
+  setSearchParams({})
   }
 
   const hoverOff = () => {
