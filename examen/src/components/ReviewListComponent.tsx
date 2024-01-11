@@ -29,7 +29,7 @@ const ReviewListComponent = ({ gameId, onDeleteGame }: ReviewListProps) => {
                 {currentUser && currentUser.uid === review.uid && (
                   <Button
                     variant="warning"
-                    className="d-flex justify-content-end"
+                    className="delete-review d-flex"
                     onClick={() => onDeleteGame(review._id)}
                   >
                     Delete

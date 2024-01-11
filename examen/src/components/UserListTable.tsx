@@ -89,7 +89,7 @@ const UserListTable = ({ onDeleteGame, onEditScore }: ListTableProps) => {
                   Update Score
                 </Button>
               </td>
-                <td><Button variant="danger" onClick={() => onDeleteGame(game._id)}>Remove</Button></td>
+                <td><Button variant="danger" onClick={() => onDeleteGame(game._id)}>Delete</Button></td>
              </tr>
          </tbody>
         ))}
