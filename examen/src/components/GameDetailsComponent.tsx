@@ -33,6 +33,7 @@ const GameDetailsComponent = ({
   const gameExists = games?.some((g) => g.name === game.name);
 
   const [averageScore, setAverageScore] = useState<number | null>(null);
+  const [newScore, setNewScore] = useState<number | null>(null)
 
   const handleDeleteReview = async (reviewId: string) => {
     try {
@@ -61,10 +62,17 @@ const GameDetailsComponent = ({
       const averageScore = sum / scores.length;
 
       setAverageScore(averageScore);
+
+      if (newScore !== null) {
+        const updatedAverageScore =
+          (sum + newScore) / (scores.length + 1); 
+        setAverageScore(updatedAverageScore); 
+        setNewScore(null); 
+      }
     };
 
     getAverageScore();
-  }, [game]);
+  }, [game, newScore]);
 
   const renderFromNav = () => {
     if (selectedNav === "Description") {
@@ -102,6 +110,8 @@ const GameDetailsComponent = ({
 
   const onSubmitGame: SubmitHandler<GameTitle> = async (data: GameTitle) => {
     await onAddGame(data);
+
+    setNewScore(parseFloat(data.score))
   };
 
   const onSubmitReview: SubmitHandler<Review> = async (data: Review) => {
@@ -191,9 +201,20 @@ const GameDetailsComponent = ({
                         Game is already in list
                       </Button>
                     ) : (
+                      <>
+                      <Form.Select aria-label="Default select example" {...registerGame("score", {
+                        required: "Please set a score"
+                      })}>
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                  </Form.Select>
                       <Button type="submit" variant="dark">
                         Add To List
                       </Button>
+                      </>
                     )}
                   </InputGroup>
                 </Form>

@@ -31,6 +31,32 @@ const UserListTable = ({ onDeleteGame, onEditScore }: ListTableProps) => {
         score: updatedScore,
       });
     };
+
+    const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+
+    const sortGamesByName = () => {
+      if (games) {
+        const sortedGames = [...games];
+        sortedGames.sort((a, b) => {
+          const nameA = a.name.toUpperCase();
+          const nameB = b.name.toUpperCase();
+          if (sortOrder === 'asc') {
+            return nameA.localeCompare(nameB);
+          } else {
+            return nameB.localeCompare(nameA);
+          }
+        });
+  
+        return sortedGames;
+      }
+  
+      return [];
+    };
+  
+    const handleSortByName = () => {
+      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+    };
+  
   
 
   return (
@@ -39,13 +65,22 @@ const UserListTable = ({ onDeleteGame, onEditScore }: ListTableProps) => {
             <tr>
                 <th>#</th>
                 <th>Cover</th>
-                <th>Name</th>
+                <th>
+            Name
+            <Button
+              variant="link"
+              onClick={handleSortByName}
+              style={{ color: "white" }}
+            >
+              {sortOrder === 'asc' ? '▲' : '▼'}
+            </Button>
+          </th>
                 <th>Score</th>
                 <th></th>
                 <th></th>
             </tr>
         </thead>
-        {games && games.map((game, index) => (
+        {sortGamesByName() && sortGamesByName().map((game, index) => (
              <tbody key={game.name}>
              <tr>
                 <td>{index + 1}</td>
