@@ -46,9 +46,9 @@ const GameDetailsComponent = ({
 
   useEffect(() => {
     const getAverageScore = async () => {
-      const coll = gamesCol;
+      const col = gamesCol;
       const querySnapshot = await getDocs(
-        query(coll, where("name", "==", game?.name))
+        query(col, where("name", "==", game?.name))
       );
 
       const scores: number[] = [];
@@ -101,6 +101,7 @@ const GameDetailsComponent = ({
     formState: gameFormState,
     reset: gameReset,
   } = useForm<GameTitle>();
+  
   const {
     handleSubmit: reviewSubmit,
     register: registerReview,
