@@ -60,13 +60,17 @@ const GameDetailsComponent = ({
 
       const sum = scores.reduce((total, score) => total + score, 0);
       const averageScore = sum / scores.length;
+      const limitScore = parseFloat(averageScore.toFixed(2))
 
-      setAverageScore(averageScore);
+      setAverageScore(limitScore);
 
       if (newScore !== null) {
         const updatedAverageScore =
-          (sum + newScore) / (scores.length + 1); 
-        setAverageScore(updatedAverageScore); 
+        (sum + newScore) / (scores.length + 1);
+      const limitAverageScore = parseFloat(
+        updatedAverageScore.toFixed(2)
+      );
+        setAverageScore(limitAverageScore); 
         setNewScore(null); 
       }
     };
@@ -101,7 +105,7 @@ const GameDetailsComponent = ({
     formState: gameFormState,
     reset: gameReset,
   } = useForm<GameTitle>();
-  
+
   const {
     handleSubmit: reviewSubmit,
     register: registerReview,
