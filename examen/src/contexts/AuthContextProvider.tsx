@@ -4,7 +4,6 @@ import {
   signInWithEmailAndPassword,
   verifyBeforeUpdateEmail,
   onAuthStateChanged,
-  updatePassword,
   User,
   signOut,
 } from "firebase/auth";
@@ -27,7 +26,7 @@ type AuthContextProps = {
   children: React.ReactNode;
 };
 
-const AuthContextProvider: React.FC<AuthContextProps> = ({ children }) => {
+const AuthContextProvider = ({ children } : AuthContextProps) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [userEmail, setUserEmail] = useState<string | null>(null);
