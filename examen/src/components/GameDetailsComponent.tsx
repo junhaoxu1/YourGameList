@@ -47,13 +47,13 @@ const GameDetailsComponent = ({
   useEffect(() => {
     const getAverageScore = async () => {
       const col = gamesCol;
-      const querySnapshot = await getDocs(
+      const snapshot = await getDocs(
         query(col, where("name", "==", game?.name))
       );
 
       const scores: number[] = [];
 
-      querySnapshot.forEach((doc) => {
+      snapshot.forEach((doc) => {
         const score = parseFloat(doc.data().score);
         scores.push(score);
       });
