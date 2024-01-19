@@ -6,7 +6,6 @@ import {
   collection,
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import { getStorage } from "firebase/storage";
 import { UserInfo } from "../types/User.types";
 import { GameTitle } from "../types/Game.types";
 import { Review } from "../types/Review.types";

@@ -2,7 +2,6 @@ import {
   UserCredential,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  verifyBeforeUpdateEmail,
   onAuthStateChanged,
   User,
   signOut,
