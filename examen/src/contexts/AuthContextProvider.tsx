@@ -16,7 +16,6 @@ type AuthContextType = {
   login: (email: string, password: string) => Promise<UserCredential>;
   logout: () => Promise<void>;
   reloadUser: () => Promise<boolean>;
-  setEmail: (email: string) => Promise<void>;
   userEmail: string | null;
 };
 
@@ -42,14 +41,6 @@ const AuthContextProvider = ({ children } : AuthContextProps) => {
 
   const logout = () => {
     return signOut(auth);
-  };
-
-  const setEmail = (email: string) => {
-    if (!currentUser) {
-      throw new Error("User is null");
-    }
-
-    return verifyBeforeUpdateEmail(currentUser, email);
   };
 
   const reloadUser = async () => {
@@ -84,7 +75,6 @@ const AuthContextProvider = ({ children } : AuthContextProps) => {
         login,
         logout,
         reloadUser,
-        setEmail,
         userEmail,
       }}
     >
