@@ -33,7 +33,7 @@ const GameDetailsComponent = ({
   const gameExists = games?.some((g) => g.name === game.name);
 
   const [averageScore, setAverageScore] = useState<number | null>(null);
-  const [newScore, setNewScore] = useState<number | null>(null)
+  const [newScore, setNewScore] = useState<number | null>(null);
 
   const handleDeleteReview = async (reviewId: string) => {
     try {
@@ -60,18 +60,15 @@ const GameDetailsComponent = ({
 
       const sum = scores.reduce((total, score) => total + score, 0);
       const averageScore = sum / scores.length;
-      const limitScore = parseFloat(averageScore.toFixed(2))
+      const limitScore = parseFloat(averageScore.toFixed(2));
 
       setAverageScore(limitScore);
 
       if (newScore !== null) {
-        const updatedAverageScore =
-        (sum + newScore) / (scores.length + 1);
-      const limitAverageScore = parseFloat(
-        updatedAverageScore.toFixed(2)
-      );
-        setAverageScore(limitAverageScore); 
-        setNewScore(null); 
+        const updatedAverageScore = (sum + newScore) / (scores.length + 1);
+        const limitAverageScore = parseFloat(updatedAverageScore.toFixed(2));
+        setAverageScore(limitAverageScore);
+        setNewScore(null);
       }
     };
 
@@ -116,7 +113,7 @@ const GameDetailsComponent = ({
   const onSubmitGame: SubmitHandler<GameTitle> = async (data: GameTitle) => {
     await onAddGame(data);
 
-    setNewScore(parseFloat(data.score))
+    setNewScore(parseFloat(data.score));
   };
 
   const onSubmitReview: SubmitHandler<Review> = async (data: Review) => {
@@ -151,6 +148,7 @@ const GameDetailsComponent = ({
             ) : (
               <img src="" alt="Placeholder" />
             )}
+            <h2>Information</h2>
             <div className="d-flex gap-2">
               <p>Developers:</p>
               {game.developers.map((developer) => (
@@ -207,18 +205,21 @@ const GameDetailsComponent = ({
                       </Button>
                     ) : (
                       <>
-                      <Form.Select aria-label="Default select example" {...registerGame("score", {
-                        required: "Please set a score"
-                      })}>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                  </Form.Select>
-                      <Button type="submit" variant="dark">
-                        Add To List
-                      </Button>
+                        <Form.Select
+                          aria-label="Default select example"
+                          {...registerGame("score", {
+                            required: "Please set a score",
+                          })}
+                        >
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                        </Form.Select>
+                        <Button type="submit" variant="dark">
+                          Add To List
+                        </Button>
                       </>
                     )}
                   </InputGroup>

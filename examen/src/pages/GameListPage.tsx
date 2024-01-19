@@ -22,7 +22,7 @@ const GameListPage = () => {
     setLoading(true);
     try {
       const data = await GameAPI.getGames(page);
-      setGames(data as GameTitles || null);
+      setGames((data as GameTitles) || null);
     } catch (error) {
       if (error instanceof Error) setError(error.message);
     }

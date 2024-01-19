@@ -37,14 +37,16 @@ const Pagination = ({
         >
           <FontAwesomeIcon icon={faAngleDoubleLeft} />
         </Button>
-        <Button disabled={!hasPreviousPage} onClick={onPreviousPage} variant="dark">
+        <Button
+          disabled={!hasPreviousPage}
+          onClick={onPreviousPage}
+          variant="dark"
+        >
           <FontAwesomeIcon icon={faAngleLeft} />
         </Button>
       </div>
 
-      <div className="page">
-        {page}
-      </div>
+      <div className="page">{page}</div>
 
       <div className="right">
         <Button disabled={!hasNextPage} onClick={onNextPage} variant="dark">

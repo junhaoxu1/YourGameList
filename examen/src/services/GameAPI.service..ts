@@ -6,7 +6,9 @@ const BASE_URL = "https://api.rawg.io/api";
 
 export const getGames = async (page = 1) => {
   try {
-    const response = await axios.get(`${BASE_URL}/games?key=${API_KEY}&page=${page}`);
+    const response = await axios.get(
+      `${BASE_URL}/games?key=${API_KEY}&page=${page}`
+    );
     return response.data as GameTitles;
   } catch (error) {
     console.error("Error fetching games: ", error);
@@ -16,19 +18,23 @@ export const getGames = async (page = 1) => {
 
 export const getGame = async (gameId: number) => {
   try {
-    const response = await axios.get(`${BASE_URL}/games/${gameId}?key=${API_KEY}`)
-    return response.data as GameTitle
+    const response = await axios.get(
+      `${BASE_URL}/games/${gameId}?key=${API_KEY}`
+    );
+    return response.data as GameTitle;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
 export const searchGames = async (query: string): Promise<GameTitles> => {
   try {
-    const response = await axios.get(`${BASE_URL}/games?key=${API_KEY}&search=${query}`);
+    const response = await axios.get(
+      `${BASE_URL}/games?key=${API_KEY}&search=${query}`
+    );
     return response.data as GameTitles;
   } catch (error) {
-    console.error('Error searching games: ', error);
+    console.error("Error searching games: ", error);
     throw error;
   }
-}
+};

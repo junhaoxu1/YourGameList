@@ -20,16 +20,15 @@ const ListNavigation = () => {
   const query = searchParams.get("query");
 
   const hoverOn = () => {
-	setDropdownVisible(true)
-  setSearchParams({})
-  }
+    setDropdownVisible(true);
+    setSearchParams({});
+  };
 
   const hoverOff = () => {
-	setTimeout(() => {
-		setDropdownVisible(false)
-	}, 5000)
-
-  }
+    setTimeout(() => {
+      setDropdownVisible(false);
+    }, 5000);
+  };
 
   const searchForGames = async (searchQuery: string) => {
     setSearchResult(null);
@@ -37,7 +36,6 @@ const ListNavigation = () => {
     try {
       const res = await searchGames(searchQuery);
       setSearchResult(res);
-
     } catch (err: unknown) {
       console.error("Error:", err);
     }
@@ -64,9 +62,8 @@ const ListNavigation = () => {
     if (searchResult && searchResult.results.length > 0) {
       setDropdownVisible(true);
     } else {
-      setDropdownVisible(false); 
+      setDropdownVisible(false);
     }
-
   }, [searchResult]);
 
   return (
@@ -82,25 +79,25 @@ const ListNavigation = () => {
             onChange={(e) => setSearch(e.target.value)}
             value={search}
           />
-          <Button
-            variant="dark"
-            type="submit"
-            disabled={!search.trim().length}
-          >
+          <Button variant="dark" type="submit" disabled={!search.trim().length}>
             Search
           </Button>
-		  {searchResult && searchResult.results.length > 0 && (
-          <Dropdown
-            className="search-dropdown"
-            show={dropdownVisible}
-          >
-            <Dropdown.Menu>
-              {searchResult.results.slice(0, 5).map((game) => (
-                  <Dropdown.Item href={`/game/${game.id}`}onMouseEnter={hoverOn} onMouseLeave={hoverOff} key={game.id}>{game.name}</Dropdown.Item>
-              ))}
-            </Dropdown.Menu>
-          </Dropdown>
-        )}
+          {searchResult && searchResult.results.length > 0 && (
+            <Dropdown className="search-dropdown" show={dropdownVisible}>
+              <Dropdown.Menu>
+                {searchResult.results.slice(0, 5).map((game) => (
+                  <Dropdown.Item
+                    href={`/game/${game.id}`}
+                    onMouseEnter={hoverOn}
+                    onMouseLeave={hoverOff}
+                    key={game.id}
+                  >
+                    {game.name}
+                  </Dropdown.Item>
+                ))}
+              </Dropdown.Menu>
+            </Dropdown>
+          )}
         </Form>
       </Container>
     </Navbar>

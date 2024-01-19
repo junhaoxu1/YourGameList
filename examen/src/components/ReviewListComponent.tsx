@@ -4,16 +4,16 @@ import useAuth from "../hooks/useAuth";
 
 interface ReviewListProps {
   gameId: number | undefined;
-  onDeleteGame: (reviewId: string) => Promise<void>
+  onDeleteGame: (reviewId: string) => Promise<void>;
 }
 
 const ReviewListComponent = ({ gameId, onDeleteGame }: ReviewListProps) => {
   if (gameId === undefined) {
-    return
+    return;
   }
 
   const { data: reviews } = useGetReviews(gameId);
-  const { currentUser } = useAuth()
+  const { currentUser } = useAuth();
 
   return (
     <>
@@ -25,16 +25,17 @@ const ReviewListComponent = ({ gameId, onDeleteGame }: ReviewListProps) => {
                 <div className="review-email d-flex fw-bold fs-5">
                   {review.userEmail}
                 </div>
-                <div className="review-area">{review.text}
-                {currentUser && currentUser.uid === review.uid && (
-                  <Button
-                    variant="danger"
-                    className="delete-review d-flex"
-                    onClick={() => onDeleteGame(review._id)}
-                  >
-                    Delete
-                  </Button>
-                )}
+                <div className="review-area">
+                  {review.text}
+                  {currentUser && currentUser.uid === review.uid && (
+                    <Button
+                      variant="danger"
+                      className="delete-review d-flex"
+                      onClick={() => onDeleteGame(review._id)}
+                    >
+                      Delete
+                    </Button>
+                  )}
                 </div>
               </Col>
             </Container>
