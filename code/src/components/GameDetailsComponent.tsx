@@ -54,7 +54,7 @@ const GameDetailsComponent = ({
       const scores: number[] = [];
 
       snapshot.forEach((doc) => {
-        const score = parseFloat(doc.data().score);
+        const score = doc.data().score;
         scores.push(score);
       });
 
