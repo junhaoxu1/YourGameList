@@ -58,20 +58,14 @@ const GameDetailsComponent = ({
         }
       });
   
-      console.log("Fetched Scores:", scores);
-  
       if (newScore !== null) {
         scores.push(newScore);
-        console.log("New Score Added:", newScore);
       }
   
       const sum = scores.reduce((total, score) => total + score, 0); 
-      console.log("Sum of Scores:", sum);
   
       const averageScore = sum / scores.length;
       const limitScore = parseFloat(averageScore.toFixed(2));
-  
-      console.log("Calculated Average:", limitScore);
   
       setAverageScore(limitScore);
   
