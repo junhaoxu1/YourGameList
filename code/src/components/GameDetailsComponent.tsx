@@ -47,31 +47,39 @@ const GameDetailsComponent = ({
   useEffect(() => {
     const getAverageScore = async () => {
       const col = gamesCol;
-      const snapshot = await getDocs(
-        query(col, where("name", "==", game?.name))
-      );
-
+      const snapshot = await getDocs(query(col, where("name", "==", game?.name)));
+  
       const scores: number[] = [];
-
+  
       snapshot.forEach((doc) => {
-        const score = doc.data().score;
-        scores.push(score);
+        const score = parseFloat(doc.data().score);
+        if (!isNaN(score)) { 
+          scores.push(score);
+        }
       });
-
-      const sum = scores.reduce((total, score) => total + score, 0);
+  
+      console.log("Fetched Scores:", scores);
+  
+      if (newScore !== null) {
+        scores.push(newScore);
+        console.log("New Score Added:", newScore);
+      }
+  
+      const sum = scores.reduce((total, score) => total + score, 0); 
+      console.log("Sum of Scores:", sum);
+  
       const averageScore = sum / scores.length;
       const limitScore = parseFloat(averageScore.toFixed(2));
-
+  
+      console.log("Calculated Average:", limitScore);
+  
       setAverageScore(limitScore);
-
+  
       if (newScore !== null) {
-        const updatedAverageScore = (sum + newScore) / (scores.length + 1);
-        const limitAverageScore = parseFloat(updatedAverageScore.toFixed(2));
-        setAverageScore(limitAverageScore);
         setNewScore(null);
       }
     };
-
+  
     getAverageScore();
   }, [game, newScore]);
 
